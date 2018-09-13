@@ -1,0 +1,5 @@
+makefile.depend
+makefile.opt
+*.o
+mdacp
+.vimrc.local

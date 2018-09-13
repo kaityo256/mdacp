@@ -1,0 +1,3 @@
+CC=icpc
+CPPFLAGS=-fopenmp -xHOST -O3 
+LDFLAGS=-lmpi

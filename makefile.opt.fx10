@@ -1,0 +1,5 @@
+CC=mpiFCCpx
+#CPPFLAGS=-Kvisimpact -Ksimd=2 -Kopenmp 
+#CPPFLAGS=-Kvisimpact -Ksimd=2 -Knoparallel -Kopenmp 
+#CPPFLAGS=-Kfast -Ksimd=2 -Knoparallel -Kopenmp -Xg
+CPPFLAGS=-Kfast -Ksimd=2 -Knoparallel -Kopenmp -Xg -DFX10

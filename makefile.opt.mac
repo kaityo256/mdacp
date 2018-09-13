@@ -1,0 +1,2 @@
+CC=g++
+CPPFLAGS=-O3 -fopenmp -lmpi -lmpi_cxx -DAVX2 -march=native
