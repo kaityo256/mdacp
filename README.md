@@ -21,8 +21,7 @@ for the Lennard-Jones particle systems.
 	$ make
 	$ mpirun -np 1 ./mdacp
 
-The latest information of MDACP is available at
-http://mdacp.sourceforge.net/
+The latest information of MDACP is available at [github.com/kaityo256/mdacp](https://github.com/kaityo256/mdacp).
 
 ## List of Developers
 
