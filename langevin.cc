@@ -26,8 +26,7 @@ Langevin::Run(MDManager *mdm) {
       mout << mdm->GetSimulationTime();
       mout << " " << mdm->Temperature();
       mout << " " << mdm->Pressure();
-      mout << " " << mdm->TotalEnergy();
-      mout << "# observe" << std::endl;
+      mout << " " << mdm->TotalEnergy() << std::endl;
     }
   }
 }
