@@ -43,13 +43,13 @@ $(TARGET): $(OBJ)
 	$(CC) $(CPPFLAGS) -c $< 
 
 dep:
-	g++ -MM -MG $(SRC) >makefile.depend
+	$(CC) -MM -MG $(SRC) >makefile.depend
 
 makefile.depend: 
-	g++ -MM -MG $(SRC) >makefile.depend
+	$(CC) -MM -MG $(SRC) >makefile.depend
 
 clean:
-	rm -f $(TARGET) $(OBJ) gmon.*.out gmon.out
+	rm -f $(TARGET) $(OBJ) gmon.*.out gmon.out makefile.depend
 
 tar:
 	tar cvzf $(TARGET).tar.gz *.cfg $(SRC) $(HED) makefile
