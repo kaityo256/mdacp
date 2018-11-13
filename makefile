@@ -13,6 +13,8 @@ RELEASEDIR=mdacp-$(VERSION)
 CC=mpic++
 CPPFLAGS=-O3 -fopenmp -std=c++11
 LDFLAGS=
+# for make dep
+DEPFLAGS=-MM -MG
 
 #------------------------------------------------------
 # Compile Option
@@ -43,10 +45,10 @@ $(TARGET): $(OBJ)
 	$(CC) $(CPPFLAGS) -c $< 
 
 dep:
-	$(CC) -MM -MG $(SRC) >makefile.depend
+	$(CC) $(DEPFLAGS) $(SRC) >makefile.depend
 
 makefile.depend: 
-	$(CC) -MM -MG $(SRC) >makefile.depend
+	$(CC) $(DEPFLAGS) $(SRC) >makefile.depend
 
 clean:
 	rm -f $(TARGET) $(OBJ) gmon.*.out gmon.out makefile.depend

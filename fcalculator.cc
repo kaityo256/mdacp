@@ -641,8 +641,9 @@ ForceCalculator::CalculateForceReactlessSIMD_errsafe(Variables *vars, MeshList *
 
   double (*p)[D] = vars->p;
   const int pn = vars->GetTotalParticleNumber();
+  //double (*q)[D] = vars->q;
   thread_local static double q[N][D];
-  memcpy((void*)q, (void*)vars->q, sizeof(double) * 3 * pn);
+  memcpy((void*)q, (void*)vars->q, sizeof(double) * 4 * pn);
 
   const int *sorted_list = mesh->GetSortedList();
   int *key_pointer = mesh->GetKeyPointerP();
@@ -712,6 +713,7 @@ ForceCalculator::CalculateForceReactlessSIMD_errsafe(Variables *vars, MeshList *
     p[i][X] -= vxiv2[0] + vxiv2[1];
     p[i][Y] -= vyiv2[0] + vyiv2[1];
     p[i][Z] -= vziv2[0] + vziv2[1];
+    //printf("%f %f %f\n",p[i][X],p[i][Y],p[i][Z]);
     for ( ; lj < kp + np; lj++) {
       int j = sorted_list[lj];
       double dx = q[j][X] - q[i][X];
