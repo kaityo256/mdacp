@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <vector>
+#include <mpi.h>
 #include "mpistream.h"
 #include "mdconfig.h"
 #include "parainfo.h"
@@ -16,46 +17,21 @@ const int ParaInfo::diff[MAX_DIR][D] = {
 ParaInfo::ParaInfo(int np_, int nt_, Parameter &param):
   num_procs(np_), num_threads(nt_) {
   valid = true;
-  int gx = 1;
-  int gy = 1;
-  int gz = 1;
-  int np = num_procs;
   grid.resize(num_procs * num_threads);
   grid_x.reserve(num_procs * num_threads);
   grid_y.reserve(num_procs * num_threads);
   grid_z.reserve(num_procs * num_threads);
-  while (np > 1) {
-    if (np > 1) {
-      gy *= 2;
-      np /= 2;
-    }
-    if (np > 1) {
-      gz *= 2;
-      np /= 2;
-    }
-    if (np > 1) {
-      gx *= 2;
-      np /= 2;
-    }
-  }
-  int lx = 1;
-  int ly = 1;
-  int lz = 1;
-  int nt = num_threads;
-  while (nt > 1) {
-    if (nt > 1) {
-      lx *= 2;
-      nt /= 2;
-    }
-    if (nt > 1) {
-      lz *= 2;
-      nt /= 2;
-    }
-    if (nt > 1) {
-      ly *= 2;
-      nt /= 2;
-    }
-  }
+  int g3[3] = {};
+  MPI_Dims_create(num_procs, 3, g3);
+  int gx = g3[X];
+  int gy = g3[Y];
+  int gz = g3[Z];
+  int l3[3] = {};
+  MPI_Dims_create(num_threads, 3, l3);
+  // We reversed order so that gx*lx ~ gy*ly ~ gz*lz
+  int lx = l3[Z];
+  int ly = l3[Y];
+  int lz = l3[X];
   mpi_grid_size[X] = gx;
   mpi_grid_size[Y] = gy;
   mpi_grid_size[Z] = gz;
@@ -70,6 +46,9 @@ ParaInfo::ParaInfo(int np_, int nt_, Parameter &param):
   lx = openmp_grid_size[X];
   ly = openmp_grid_size[Y];
   lz = openmp_grid_size[Z];
+
+  mout << "# Procs = (" << gx << "x" << gy << "x" << gz << ")" << std::endl;
+  mout << "# Threads = (" << lx << "x" << ly << "x" << lz << ")" << std::endl;
   if (num_procs != gx * gy * gz) {
     show_error("Invalid Grid Numbers");
     valid = false;
