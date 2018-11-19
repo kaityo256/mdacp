@@ -24,7 +24,6 @@ MDManager::MDManager(int &argc, char ** &argv) {
   param.LoadFromFile(inputfile.c_str());
   num_threads = omp_get_max_threads();
   mout << "# " << num_procs << " MPI Process(es), " << num_threads << " OpenMP Thread(s), Total " << num_procs * num_threads << " Unit(s)" << std::endl;
-
   pinfo = new ParaInfo(num_procs, num_threads, param);
   int grid_size[D];
   pinfo->GetGridSize(grid_size);
