@@ -5,8 +5,8 @@
 #include "fcalculator.h"
 //----------------------------------------------------------------------
 #ifdef FX10
-#include "fj_tool/fipp.h"
-#include "simd_fx10.h"
+#include "fj_tool/fapp.h"
+//#include "simd_fx10.h"
 #endif
 #ifdef AVX2
 #include <immintrin.h>
@@ -35,13 +35,16 @@ void
 ForceCalculator::CalculateForce(Variables *vars, MeshList *mesh, SimulationInfo *sinfo) {
 
 #ifdef FX10
-  //CalculateForceReactless(vars,mesh,sinfo);
+fapp_start("force", 0,0);
+  CalculateForceReactless(vars,mesh,sinfo);
+fapp_stop("force", 0,0);
 //  CalculateForceReactlessSIMD(vars,mesh,sinfo);
-  CalculateForceReactlessSIMD_errsafe(vars, mesh, sinfo);
+  //CalculateForceReactlessSIMD_errsafe(vars, mesh, sinfo);
 #elif AVX2
   CalculateForceAVX2(vars, mesh, sinfo);
 #else
   CalculateForceNext(vars, mesh, sinfo);
+  //CalculateForceReactless(vars,mesh,sinfo);
   //CalculateForceBruteforce(vars,sinfo);
   //CalculateForceSorted(vars,mesh,sinfo);
   //CalculateForcePair(vars,mesh,sinfo);
@@ -541,7 +544,7 @@ ForceCalculator::CalculateForceReactless(Variables *vars, MeshList *mesh, Simula
   }
 }
 //----------------------------------------------------------------------
-#ifdef FX10
+#if 0
 //----------------------------------------------------------------------
 void
 ForceCalculator::CalculateForceReactlessSIMD(Variables *vars, MeshList *mesh, SimulationInfo *sinfo) {
@@ -734,7 +737,7 @@ ForceCalculator::CalculateForceReactlessSIMD_errsafe(Variables *vars, MeshList *
 
 }
 //----------------------------------------------------------------------
-#endif //FX10
+#endif
 //----------------------------------------------------------------------
 
 //----------------------------------------------------------------------

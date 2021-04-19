@@ -9,8 +9,8 @@
 const int D = 4;
 const int X = 0, Y = 1, Z = 2;
 const int N = 1000000;
-const int PAIRLIST_SIZE = N * 80;
-//const int PAIRLIST_SIZE = N*30;
+//const int PAIRLIST_SIZE = N * 80;
+const int PAIRLIST_SIZE = N*30;
 
 const double CUTOFF_LENGTH = 3.0;
 //const double CUTOFF_LENGTH = 2.5;

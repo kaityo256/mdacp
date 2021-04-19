@@ -4,7 +4,7 @@
 #include "communicator.h"
 #include "confmaker.h"
 #ifdef FX10
-#include <fj_tool/fipp.h>
+#include <fj_tool/fapp.h>
 #endif
 //----------------------------------------------------------------------
 Benchmark bench;
@@ -27,7 +27,7 @@ Benchmark::Run(MDManager *mdm) {
   }
   double start_time = Communicator::GetTime();
 #ifdef FX10
-  fipp_start();
+  fapp_start("all", 0,0);
 #endif
   for (int i = 0; i < LOOP; i++) {
     mdm->Calculate();
@@ -40,7 +40,7 @@ Benchmark::Run(MDManager *mdm) {
     }
   }
 #ifdef FX10
-  fipp_stop();
+  fapp_stop("all", 0,0);
 #endif
   double sec = Communicator::GetTime() - start_time;
   const unsigned long int pn = mdm->GetTotalParticleNumber();
